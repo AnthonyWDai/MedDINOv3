@@ -1392,7 +1392,7 @@ class dinov3_base_sam_Trainer(dinov3Trainer):
         model = vit_base(drop_path_rate=0.3, layerscale_init=1.0e-05)
         # Load checkpoint
         chkpt = torch.load(
-            '/scr2/yl_li/dinov3/dinov3_vitb16_pretrain_lvd1689m-73cec8be.pth',
+            os.environ["WEIGHT_PATH"],
             map_location='cpu'
         )
         # Load with strict=False so it won’t crash on mismatches
@@ -1544,7 +1544,7 @@ class dinov3_base_primus_multiscale_Trainer(dinov3_base_primus_Trainer):
         model = vit_base(drop_path_rate=0.2, layerscale_init=1.0e-05)
         # Load checkpoint
         chkpt = torch.load(
-            '/scr2/yl_li/dinov3/dinov3_vitb16_pretrain_lvd1689m-73cec8be.pth',
+            os.environ["WEIGHT_PATH"],
             map_location='cpu'
         )
         # Load with strict=False so it won’t crash on mismatches
@@ -1613,7 +1613,7 @@ def build_dinov3_base():
 
     # Load checkpoint
     chkpt = torch.load(
-        '/scr2/yl_li/dinov3/dinov3_vitb16_pretrain_lvd1689m-73cec8be.pth',
+        os.environ["WEIGHT_PATH"],
         map_location='cpu'
     )
     state_dict = chkpt
