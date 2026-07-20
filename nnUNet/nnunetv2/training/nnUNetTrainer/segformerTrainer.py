@@ -1145,7 +1145,7 @@ class segformerTrainer(nnUNetTrainer):
             self.initialize()
 
         if isinstance(filename_or_checkpoint, str):
-            checkpoint = torch.load(filename_or_checkpoint, map_location=self.device)
+            checkpoint = torch.load(filename_or_checkpoint, map_location=self.device, weights_only=False)
         # if state dict comes from nn.DataParallel but we use non-parallel model here then the state dict keys do not
         # match. Use heuristic to make it match
         new_state_dict = {}
@@ -1645,7 +1645,7 @@ class SegFormer(nn.Module):
 
     def init_weights(self, pretrained: str = None) -> None:
         if pretrained:
-            self.backbone.load_state_dict(torch.load(pretrained, map_location='cpu'), strict=False)
+            self.backbone.load_state_dict(torch.load(pretrained, map_location='cpu', weights_only=False), strict=False)
         else:
             for m in self.modules():
                 if isinstance(m, nn.Linear):

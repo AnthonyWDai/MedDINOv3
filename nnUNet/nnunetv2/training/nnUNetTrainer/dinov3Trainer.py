@@ -310,7 +310,7 @@ class dinov3Trainer(nnUNetTrainer):
         # Load checkpoint
         chkpt = torch.load(
             os.environ["WEIGHT_PATH"],
-            map_location='cpu'
+            map_location='cpu', weights_only=False
         )
         # Load with strict=False so it won’t crash on mismatches
         missing, unexpected = model.load_state_dict(chkpt, strict=False)
@@ -1163,7 +1163,7 @@ class dinov3Trainer(nnUNetTrainer):
             self.initialize()
 
         if isinstance(filename_or_checkpoint, str):
-            checkpoint = torch.load(filename_or_checkpoint, map_location=self.device)
+            checkpoint = torch.load(filename_or_checkpoint, map_location=self.device, weights_only=False)
         # if state dict comes from nn.DataParallel but we use non-parallel model here then the state dict keys do not
         # match. Use heuristic to make it match
         new_state_dict = {}
@@ -1393,7 +1393,7 @@ class dinov3_base_sam_Trainer(dinov3Trainer):
         # Load checkpoint
         chkpt = torch.load(
             os.environ["WEIGHT_PATH"],
-            map_location='cpu'
+            map_location='cpu', weights_only=False
         )
         # Load with strict=False so it won’t crash on mismatches
         missing, unexpected = model.load_state_dict(chkpt, strict=False)
@@ -1434,7 +1434,7 @@ class dinov3_base_primus_Trainer(dinov3Trainer):
         # Load checkpoint
         chkpt = torch.load(
             os.environ["WEIGHT_PATH"],
-            map_location='cpu'
+            map_location='cpu', weights_only=False
         )
         # Load with strict=False so it won’t crash on mismatches
         missing, unexpected = model.load_state_dict(chkpt, strict=False)
@@ -1545,7 +1545,7 @@ class dinov3_base_primus_multiscale_Trainer(dinov3_base_primus_Trainer):
         # Load checkpoint
         chkpt = torch.load(
             os.environ["WEIGHT_PATH"],
-            map_location='cpu'
+            map_location='cpu', weights_only=False
         )
         # Load with strict=False so it won’t crash on mismatches
         missing, unexpected = model.load_state_dict(chkpt, strict=False)
@@ -1589,7 +1589,7 @@ class meddinov3_base_primus_multiscale_Trainer(dinov3_base_primus_Trainer):
         # Load checkpoint (remember to download our checkpoint)
         chkpt = torch.load(
             os.environ["WEIGHT_PATH"],
-            map_location='cpu'
+            map_location='cpu', weights_only=False
         )
         state_dict = chkpt['teacher']
         state_dict = {
@@ -1614,7 +1614,7 @@ def build_dinov3_base():
     # Load checkpoint
     chkpt = torch.load(
         os.environ["WEIGHT_PATH"],
-        map_location='cpu'
+        map_location='cpu', weights_only=False
     )
     state_dict = chkpt
     # Load with strict=False so it won’t crash on mismatches
@@ -1687,7 +1687,7 @@ def debug():
     # Load checkpoint
     chkpt = torch.load(
         '/scr2/yl_li/dinov3/ct_model_vitb_batch_512/converted_ckpt/21999/model.pth',
-        map_location='cpu'
+        map_location='cpu', weights_only=False
     )
     state_dict = chkpt['model']
     print(state_dict.keys())

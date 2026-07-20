@@ -123,7 +123,7 @@ def load_dinov3_model(model_name: str, pretrained_path: str = None):
         # Create model first
         model = model_factory(pretrained=False)
         # Load custom weights
-        state_dict = torch.load(pretrained_path, map_location="cpu")
+        state_dict = torch.load(pretrained_path, map_location="cpu", weights_only=False)
         model.load_state_dict(state_dict, strict=True)
         print("Successfully loaded custom pretrained weights")
     else:
